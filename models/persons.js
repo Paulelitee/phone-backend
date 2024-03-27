@@ -2,10 +2,11 @@ const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', false)
 
+//getting url from environment variables
 const url = process.env.MONGODB_URI
 
+//initiating database connection
 console.log('connecting to', url)
-
 mongoose.connect(url)
   .then(() => {
     console.log('connected to MongoDB')
@@ -14,12 +15,13 @@ mongoose.connect(url)
     console.log('errror connecting to MoongoDB:', error.message)
   })
 
-
+//function to handle custom validation for number input
 const numberValidator = (v) => {
   const regex =/^(?:\d{8,}|\d{2,3}-\d{6,})$/
   return regex.test(v)
 }
 
+//declaring the database schema
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -35,6 +37,7 @@ const personSchema = new mongoose.Schema({
   }
 })
 
+//transforing the database schema
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
@@ -43,4 +46,6 @@ personSchema.set('toJSON', {
   }
 })
 
+
+//EXPORTS
 module.exports = mongoose.model('Person', personSchema)

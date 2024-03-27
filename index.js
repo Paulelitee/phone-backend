@@ -27,7 +27,7 @@ app.get('/api/persons', (request, response) => {
     })
 })
 
-//info rroute
+//info route
 app.get('/info', (request, response) => {
     Person.find({})
         .then(data => {
@@ -35,7 +35,7 @@ app.get('/info', (request, response) => {
             response.send(
                 `<p>phonebook has info for ${persons.length} people</p>
                 ${new Date().toLocaleString()}`)
-            })
+    })
 })
 
 //route to get one single person
@@ -119,5 +119,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-    console.log(`server runningg on port ${PORT}`)
+    console.log(`server running on port ${PORT}`)
 })
